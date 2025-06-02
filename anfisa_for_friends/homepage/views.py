@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 
 from ice_cream.models import IceCream
@@ -5,7 +6,11 @@ from ice_cream.models import IceCream
 
 def index(request):
     template = 'homepage/index.html'
-    ice_cream_list = IceCream.objects.values('id', 'title')
+    ice_cream_list = (
+        IceCream.objects.values('id', 'title')
+        .filter(is_published=True)
+        .filter(Q(is_on_main=True) | Q(title__contains='пломбир'))
+    )
     context = {
         'ice_cream_list': ice_cream_list
     }
