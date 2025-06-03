@@ -87,6 +87,14 @@ class IceCream(PublishedModel):
         default=False,
         verbose_name='На главную'
     )
+    output_order = models.PositiveSmallIntegerField(
+        default=100,
+        verbose_name='Порядок отображения'
+    )
+    price = models.DecimalField(
+        decimal_places=2,
+        max_digits=5
+    )
 
     class Meta:
         verbose_name = 'Мороженое'
